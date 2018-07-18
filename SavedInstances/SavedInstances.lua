@@ -1763,13 +1763,13 @@ function addon:UpdateToonData()
   end
   t.LFG1 = GetTimeToTime(GetLFGRandomCooldownExpiration()) or t.LFG1
   local auraIndex = GetAuraIndexBySpellID(71041)
-  t.LFG2 = auraIndex and GetTimeToTime(select(7,UnitDebuff("player", auraIndex))) or t.LFG2 -- GetLFGDeserterExpiration()
+  t.LFG2 = auraIndex and GetTimeToTime(select(6,UnitDebuff("player", auraIndex))) or t.LFG2 -- GetLFGDeserterExpiration()
   if t.LFG2 then addon:updateSpellTip(71041) end
   addon.pvpdesertids = addon.pvpdesertids or { 26013,   -- BG queue
     194958 } -- Ashran
   for _,id in ipairs(addon.pvpdesertids) do
 	local auraIndex = GetAuraIndexBySpellID(id)
-    t.pvpdesert = auraIndex and GetTimeToTime(select(7,UnitDebuff("player",auraIndex))) or t.pvpdesert
+    t.pvpdesert = auraIndex and GetTimeToTime(select(6,UnitDebuff("player",auraIndex))) or t.pvpdesert
     if t.pvpdesert then addon:updateSpellTip(id) end
     end
     for toon, ti in pairs(vars.db.Toons) do

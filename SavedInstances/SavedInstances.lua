@@ -490,6 +490,17 @@ function addon:timedebug()
   chatMsg("Next Darkmoon reset: %s local, %s server",date("%a %c",t), date("%a %c",t+3600*SavedInstances:GetServerOffset()))
 end
 
+-- Helper function that allows checking for auras by spellID instead of index (which isn't supported by Blizzard's Aura APIs after 8.0.1)
+-- Note: I haven't found a better way / direct API; their newly-introduced AuraUtils.FindAuraRecurse() functionality seems way overblown in comparison...
+local function GetAuraIndexBySpellID(spellID)
+
+	for index=1, 40 do -- Iterate over all possible auras to detect matching spell IDs
+		local auraSpellID = (select(10, UnitAura("player", index)))
+		if auraSpellID and (spellID == auraSpellID) then return index end -- Return the index for use with the regular Auras API (which doesn't take spell names after 8.0.1)
+	end
+
+end
+
 local function questTableToString(t)
   local ret = ""
   local lvl = UnitLevel("player")
